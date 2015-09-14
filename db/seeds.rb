@@ -109,3 +109,15 @@ Video.create!(
   large_cover_URL: '/tmp/the_godfather_large.jpg',
   category_id: 1
   )
+
+User.create!(
+  full_name: 'Test User 1',
+  email_address: 'testuser1@example.com',
+  password: 'password'
+  )
+
+User.create!(
+  full_name: 'Test User 2',
+  email_address: 'testuser2@example.com',
+  password: 'password'
+  )
