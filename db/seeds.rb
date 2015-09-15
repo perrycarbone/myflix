@@ -6,19 +6,23 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Category.create!(
+Video.destroy_all
+Category.destroy_all
+User.destroy_all
+
+drama = Category.create!(
   name: 'Drama'
   )
 
-Category.create!(
+horror = Category.create!(
   name: 'Horror'
   )
 
-Category.create!(
+comedy = Category.create!(
   name: 'Comedy'
   )
 
-Category.create!(
+romance = Category.create!(
   name: 'Romance'
   )
 
@@ -27,7 +31,7 @@ Video.create!(
   description: 'A boy from the Bronx grows up around the Mafia.',
   small_cover_URL: '/tmp/a_bronx_tale_small.jpg',
   large_cover_URL: '/tmp/a_bronx_tale_large.jpg',
-  category_id: 1
+  category: drama
   )
 
 Video.create!(
@@ -35,7 +39,7 @@ Video.create!(
   description: 'The Mafia invades Las Vegas',
   small_cover_URL: '/tmp/casino_small.jpg',
   large_cover_URL: '/tmp/casino_large.jpg',
-  category_id: 2
+  category: drama
   )
 
 Video.create!(
@@ -43,7 +47,7 @@ Video.create!(
   description: 'A boy from the Bronx grows up around the Mafia.',
   small_cover_URL: '/tmp/donnie_brasco_small.jpg',
   large_cover_URL: '/tmp/donnie_brasco_large.jpg',
-  category_id: 3
+  category: drama
   )
 
 Video.create!(
@@ -51,7 +55,7 @@ Video.create!(
   description: 'Two men grow up together in NYC and become part of the family.',
   small_cover_URL: '/tmp/goodfellas_small.jpg',
   large_cover_URL: '/tmp/goodfellas_large.jpg',
-  category_id: 4
+  category: drama
   )
 
 Video.create!(
@@ -59,7 +63,7 @@ Video.create!(
   description: 'Cuban refugee becomes king of the Miami cocaine business.',
   small_cover_URL: '/tmp/scarface_small.jpg',
   large_cover_URL: '/tmp/scarface_large.jpg',
-  category_id: 1
+  category: drama
   )
 
 Video.create!(
@@ -67,7 +71,7 @@ Video.create!(
   description: 'The Corleone family fights to retain control of as head of the five families.',
   small_cover_URL: '/tmp/the_godfather_small.jpg',
   large_cover_URL: '/tmp/the_godfather_large.jpg',
-  category_id: 2
+  category: drama
   )
 
 Video.create!(
@@ -75,7 +79,7 @@ Video.create!(
   description: 'The Mafia invades Las Vegas',
   small_cover_URL: '/tmp/casino_small.jpg',
   large_cover_URL: '/tmp/casino_large.jpg',
-  category_id: 1
+  category: drama
   )
 
 Video.create!(
@@ -83,7 +87,7 @@ Video.create!(
   description: 'A boy from the Bronx grows up around the Mafia.',
   small_cover_URL: '/tmp/donnie_brasco_small.jpg',
   large_cover_URL: '/tmp/donnie_brasco_large.jpg',
-  category_id: 1
+  category: horror
   )
 
 Video.create!(
@@ -91,7 +95,7 @@ Video.create!(
   description: 'Two men grow up together in NYC and become part of the family.',
   small_cover_URL: '/tmp/goodfellas_small.jpg',
   large_cover_URL: '/tmp/goodfellas_large.jpg',
-  category_id: 1
+  category: comedy
   )
 
 Video.create!(
@@ -99,7 +103,7 @@ Video.create!(
   description: 'Cuban refugee becomes king of the Miami cocaine business.',
   small_cover_URL: '/tmp/scarface_small.jpg',
   large_cover_URL: '/tmp/scarface_large.jpg',
-  category_id: 1
+  category: romance
   )
 
 Video.create!(
@@ -107,7 +111,7 @@ Video.create!(
   description: 'The Corleone family fights to retain control of as head of the five families.',
   small_cover_URL: '/tmp/the_godfather_small.jpg',
   large_cover_URL: '/tmp/the_godfather_large.jpg',
-  category_id: 1
+  category: drama
   )
 
 User.create!(
