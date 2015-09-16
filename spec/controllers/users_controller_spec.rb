@@ -10,7 +10,6 @@ describe UsersController do
 
   describe "POST create" do
     context "with valid input" do
-
       before do
         post :create, user: Fabricate.attributes_for(:user)
       end
@@ -25,7 +24,6 @@ describe UsersController do
     end
 
     context "with invalid input" do
-
       before do
         post :create, user: { password: "password", full_name: "Perry Carbone" }
       end
