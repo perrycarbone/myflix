@@ -29,99 +29,113 @@ romance = Category.create!(
 Video.create!(
   title: 'A Bronx Tale',
   description: 'A boy from the Bronx grows up around the Mafia.',
-  small_cover_URL: '/tmp/a_bronx_tale_small.jpg',
-  large_cover_URL: '/tmp/a_bronx_tale_large.jpg',
+  small_cover_url: '/tmp/a_bronx_tale_small.jpg',
+  large_cover_url: '/tmp/a_bronx_tale_large.jpg',
   category: drama
   )
 
 Video.create!(
   title: 'Casino',
   description: 'The Mafia invades Las Vegas',
-  small_cover_URL: '/tmp/casino_small.jpg',
-  large_cover_URL: '/tmp/casino_large.jpg',
+  small_cover_url: '/tmp/casino_small.jpg',
+  large_cover_url: '/tmp/casino_large.jpg',
   category: drama
   )
 
 Video.create!(
   title: 'Donnie Brasco',
   description: 'A boy from the Bronx grows up around the Mafia.',
-  small_cover_URL: '/tmp/donnie_brasco_small.jpg',
-  large_cover_URL: '/tmp/donnie_brasco_large.jpg',
+  small_cover_url: '/tmp/donnie_brasco_small.jpg',
+  large_cover_url: '/tmp/donnie_brasco_large.jpg',
   category: drama
   )
 
 Video.create!(
   title: 'Goodfellas',
   description: 'Two men grow up together in NYC and become part of the family.',
-  small_cover_URL: '/tmp/goodfellas_small.jpg',
-  large_cover_URL: '/tmp/goodfellas_large.jpg',
+  small_cover_url: '/tmp/goodfellas_small.jpg',
+  large_cover_url: '/tmp/goodfellas_large.jpg',
   category: drama
   )
 
 Video.create!(
   title: 'Scarface',
   description: 'Cuban refugee becomes king of the Miami cocaine business.',
-  small_cover_URL: '/tmp/scarface_small.jpg',
-  large_cover_URL: '/tmp/scarface_large.jpg',
+  small_cover_url: '/tmp/scarface_small.jpg',
+  large_cover_url: '/tmp/scarface_large.jpg',
   category: drama
   )
 
 Video.create!(
   title: 'The Godfather',
   description: 'The Corleone family fights to retain control of as head of the five families.',
-  small_cover_URL: '/tmp/the_godfather_small.jpg',
-  large_cover_URL: '/tmp/the_godfather_large.jpg',
+  small_cover_url: '/tmp/the_godfather_small.jpg',
+  large_cover_url: '/tmp/the_godfather_large.jpg',
   category: drama
   )
 
 Video.create!(
   title: 'Casino',
   description: 'The Mafia invades Las Vegas',
-  small_cover_URL: '/tmp/casino_small.jpg',
-  large_cover_URL: '/tmp/casino_large.jpg',
+  small_cover_url: '/tmp/casino_small.jpg',
+  large_cover_url: '/tmp/casino_large.jpg',
   category: drama
   )
 
 Video.create!(
   title: 'Donnie Brasco',
   description: 'A boy from the Bronx grows up around the Mafia.',
-  small_cover_URL: '/tmp/donnie_brasco_small.jpg',
-  large_cover_URL: '/tmp/donnie_brasco_large.jpg',
+  small_cover_url: '/tmp/donnie_brasco_small.jpg',
+  large_cover_url: '/tmp/donnie_brasco_large.jpg',
   category: horror
   )
 
-Video.create!(
+goodfellas = Video.create!(
   title: 'Goodfellas',
   description: 'Two men grow up together in NYC and become part of the family.',
-  small_cover_URL: '/tmp/goodfellas_small.jpg',
-  large_cover_URL: '/tmp/goodfellas_large.jpg',
+  small_cover_url: '/tmp/goodfellas_small.jpg',
+  large_cover_url: '/tmp/goodfellas_large.jpg',
   category: comedy
   )
 
 Video.create!(
   title: 'Scarface',
   description: 'Cuban refugee becomes king of the Miami cocaine business.',
-  small_cover_URL: '/tmp/scarface_small.jpg',
-  large_cover_URL: '/tmp/scarface_large.jpg',
+  small_cover_url: '/tmp/scarface_small.jpg',
+  large_cover_url: '/tmp/scarface_large.jpg',
   category: romance
   )
 
 Video.create!(
   title: 'The Godfather',
   description: 'The Corleone family fights to retain control of as head of the five families.',
-  small_cover_URL: '/tmp/the_godfather_small.jpg',
-  large_cover_URL: '/tmp/the_godfather_large.jpg',
+  small_cover_url: '/tmp/the_godfather_small.jpg',
+  large_cover_url: '/tmp/the_godfather_large.jpg',
   category: drama
   )
 
-User.create!(
+testuser1 = User.create!(
   full_name: 'Test User 1',
   email_address: 'testuser1@example.com',
   password: 'password'
   )
 
-User.create!(
+testuser2 = User.create!(
   full_name: 'Test User 2',
   email_address: 'testuser2@example.com',
   password: 'password'
+  )
+
+Review.create!(
+  user: testuser1,
+  video: goodfellas,
+  rating: 5,
+  content: "This was a fantastic movie.  I love the mafia!"
+  )
+
+Review.create!(
+  user: testuser2,
+  video: goodfellas,
+  rating: 3,
+  content: "This move was OK.  I like watching soap operas better."
   )
