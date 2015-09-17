@@ -25,7 +25,6 @@ describe ReviewsController do
           expect(Review.first.video).to eq(video)
         end 
         it "creates a review associated with signed in user" do
-          user = Fabricate(:user)
           expect(Review.first.user).to eq(current_user)
         end
       end
