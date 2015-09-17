@@ -54,6 +54,7 @@ describe QueueItemsController do
       godfather_queue_item = QueueItem.find_by(video_id: godfather.id, user_id: bob.id)
       expect(godfather_queue_item.position).to eq(2)
     end
+
     it "does not add the video to the queue if the video is already in the queue" do
       session[:user_id] = bob.id
       goodfellas = Fabricate(:video)
@@ -66,5 +67,36 @@ describe QueueItemsController do
       post :create, video_id: 3
       expect(response).to redirect_to login_path
     end  
+  end
+
+  describe "DELETE destroy" do
+    it "redirects to the my queue page" do
+      session[:user_id] = Fabricate(:user).id
+      queue_item = Fabricate(:queue_item)
+      delete :destroy, id: queue_item.id
+      expect(response).to redirect_to my_queue_path
+    end
+
+    it "deletes the queue item" do
+      bob = Fabricate(:user)
+      session[:user_id] = bob.id
+      queue_item = Fabricate(:queue_item, user: bob)
+      delete :destroy, id: queue_item.id
+      expect(QueueItem.count).to eq(0)
+    end
+
+    it "does not delete the queue item if the queue item is not in the current user's queue" do
+      bob = Fabricate(:user)
+      jane = Fabricate(:user)
+      session[:user_id] = jane.id
+      queue_item = Fabricate(:queue_item, user: bob)
+      delete :destroy, id: queue_item.id
+      expect(QueueItem.count).to eq(1)
+    end
+
+    it "redirects to login page for unauthenticated users" do
+      delete :destroy, id: 10
+      expect(response).to redirect_to login_path
+    end
   end
 end
