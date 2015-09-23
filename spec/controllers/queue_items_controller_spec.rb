@@ -91,7 +91,7 @@ describe QueueItemsController do
       queue_item1 = Fabricate(:queue_item, user: bob, position: 1)
       queue_item2 = Fabricate(:queue_item, user: bob, position: 2)
       delete :destroy, id: queue_item1.id
-      expect(QueueItem.first.position).to eq(1)
+      expect(queue_item2.reload.position).to eq(1)
     end
 
     it "does not delete the queue item if the queue item is not in the current user's queue" do
