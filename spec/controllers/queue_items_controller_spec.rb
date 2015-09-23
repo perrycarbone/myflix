@@ -1,4 +1,4 @@
-require 'spec_helper'
+  require 'spec_helper'
 
 describe QueueItemsController do
   describe "GET index" do
@@ -66,7 +66,7 @@ describe QueueItemsController do
     it "redirects to the login page for unauthenticated users" do
       post :create, video_id: 3
       expect(response).to redirect_to login_path
-    end  
+    end
   end
 
   describe "DELETE destroy" do
@@ -85,6 +85,15 @@ describe QueueItemsController do
       expect(QueueItem.count).to eq(0)
     end
 
+    it "nomalizes the remaining queue items" do
+      bob = Fabricate(:user)
+      session[:user_id] = bob.id
+      queue_item1 = Fabricate(:queue_item, user: bob, position: 1)
+      queue_item2 = Fabricate(:queue_item, user: bob, position: 2)
+      delete :destroy, id: queue_item1.id
+      expect(queue_item2.reload.position).to eq(1)
+    end
+
     it "does not delete the queue item if the queue item is not in the current user's queue" do
       bob = Fabricate(:user)
       jane = Fabricate(:user)
@@ -97,6 +106,75 @@ describe QueueItemsController do
     it "redirects to login page for unauthenticated users" do
       delete :destroy, id: 10
       expect(response).to redirect_to login_path
+    end
+  end
+
+  describe "POST queue_items" do
+    context "with valid inputs" do
+
+      let(:bob) { Fabricate(:user) }
+      let(:video) { Fabricate(:video) }
+      let(:queue_item1) { Fabricate(:queue_item, user: bob, position: 1, video: video) }
+      let(:queue_item2) { Fabricate(:queue_item, user: bob, position: 2, video: video) }
+      before { session[:user_id] = bob.id }
+
+      it "redirects to the my_queue page" do
+        post :update_queue, queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]
+        expect(response).to redirect_to my_queue_path
+      end
+
+      it "reorders the queue items" do
+        post :update_queue, queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]
+        expect(bob.queue_items).to eq([queue_item2, queue_item1])
+      end
+      it "normalizes the position numbers" do
+        post :update_queue, queue_items: [{id: queue_item1.id, position: 3}, {id: queue_item2.id, position: 1}]
+        expect(bob.queue_items.map(&:position)).to eq([1, 2])
+      end
+    end
+
+    context "with invalid inputs" do
+
+      let(:bob) { Fabricate(:user) }
+      let(:video) { Fabricate(:video) }
+      let(:queue_item1) { Fabricate(:queue_item, user: bob, position: 1, video: video) }
+      let(:queue_item2) { Fabricate(:queue_item, user: bob, position: 2, video: video) }
+      before { session[:user_id] = bob.id }
+
+      it "redirects to the my_queue page" do
+        post :update_queue, queue_items: [{id: queue_item1.id, position: 3.8}, {id: queue_item2.id, position: 1}]
+        expect(response).to redirect_to my_queue_path
+      end
+
+      it "sets flash error message" do
+        post :update_queue, queue_items: [{id: queue_item1.id, position: 3.8}, {id: queue_item2.id, position: 1}]
+        expect(flash[:danger]).to be_present
+      end
+
+      it "does not change the queue items" do
+        post :update_queue, queue_items: [{id: queue_item1.id, position: 3}, {id: queue_item2.id, position: 1.8}]
+        expect(queue_item1.reload.position).to eq(1)
+      end
+    end
+
+    context "with unauthenticated users" do
+      it "redirects to the login path" do
+        post :update_queue, queue_items: [{id: 1, position: 3}, {id: 4, position: 1}]
+        expect(response).to redirect_to login_path
+      end
+    end
+
+    context "with queue items that do not belong to current_user" do
+      it "does not change the queue items" do
+        jane = Fabricate(:user)
+        session[:user_id] = jane.id
+        bob = Fabricate(:user)
+        video = Fabricate(:video)
+        queue_item1 = Fabricate(:queue_item, user: bob, position: 1, video: video)
+        queue_item2 = Fabricate(:queue_item, user: jane, position: 2, video: video)
+        post :update_queue, queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]
+        expect(queue_item1.reload.position).to eq(1)
+      end
     end
   end
 end
