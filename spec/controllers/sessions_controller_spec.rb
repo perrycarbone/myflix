@@ -4,10 +4,10 @@ describe SessionsController do
   describe "GET new" do
     it "renders the :new template for unauthenticated users" do
       get :new
-      expect(response).to render_template :new    
+      expect(response).to render_template :new
     end
     it "redirects to the videos page for authenticated user" do
-      session[:user_id] = Fabricate(:user).id
+      set_current_user
       get :new
       expect(response).to redirect_to home_path
     end
@@ -17,8 +17,8 @@ describe SessionsController do
     context "with valid credentials" do
       let(:bob) { Fabricate(:user) }
       before { post :create, email_address: bob.email_address, password: bob.password }
-          
-      it "puts signed-in user into session" do  
+
+      it "puts signed-in user into session" do
         expect(session[:user_id]).to eq(bob.id)
       end
 
@@ -35,7 +35,7 @@ describe SessionsController do
       let(:bob) { Fabricate(:user) }
       before { post :create, email_address: bob.email_address, password: bob.password + "skdjfsdkjb" }
 
-      it "does not put user into session" do        
+      it "does not put user into session" do
         expect(session[:user_id]).to be_nil
       end
 
@@ -51,7 +51,7 @@ describe SessionsController do
 
   describe "GET destroy" do
     before do
-      session[:user_id] = Fabricate(:user).id
+      set_current_user
       get :destroy
     end
 
@@ -64,7 +64,7 @@ describe SessionsController do
     end
 
     it "redirects to root path" do
-      expect(response).to redirect_to root_path      
+      expect(response).to redirect_to root_path
     end
   end
 end
