@@ -5,7 +5,7 @@ describe Category do
   it { should validate_presence_of(:name) }
 
   describe "#recent_videos" do
-    let(:drama) { drama = Category.create(name: "drama") }
+    let(:drama) { Fabricate(:category, name: "drama") }
 
     it "returns the videos in reverse chronological order by created_at" do
       video1 = Video.create(title: "Video 1", description: "Some description", category: drama, created_at: 1.day.ago)

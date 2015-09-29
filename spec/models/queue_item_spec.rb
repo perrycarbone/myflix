@@ -29,9 +29,9 @@ describe QueueItem do
   end
 
   describe "#rating=" do
-    let(:video) { video = Fabricate(:video) }
-    let(:user) { user = Fabricate(:user) }
-    let(:queue_item) { queue_item = Fabricate(:queue_item, user: user, video: video) }
+    let(:video) { Fabricate(:video) }
+    let(:user) { Fabricate(:user) }
+    let(:queue_item) { Fabricate(:queue_item, user: user, video: video) }
 
     it "changes the rating of the review if a rating is present" do
       review = Fabricate(:review, user: user, video: video, rating: 2)
