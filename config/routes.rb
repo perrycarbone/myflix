@@ -19,7 +19,7 @@ Myflix::Application.routes.draw do
   resources :categories, only: [:show]
   resources :users, only: [:create, :show, :edit, :update]
   get 'people', to: 'relationships#index'
-  resources :relationships, only: [:destroy]
+  resources :relationships, only: [:create, :destroy]
 
   resources :queue_items, only: [:create, :destroy]
   post 'update_queue', to: 'queue_items#update_queue'

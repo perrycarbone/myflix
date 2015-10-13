@@ -1,6 +1,12 @@
 class RelationshipsController < ApplicationController
   before_action :require_user
 
+  def create
+    leader = User.find(params[:leader_id])
+    Relationship.create(leader_id: params[:leader_id], follower: current_user) if current_user.can_follow?(leader)
+    redirect_to people_path
+  end
+
   def index
     @relationships = current_user.following_relationships
   end

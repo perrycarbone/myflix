@@ -23,3 +23,19 @@ describe User do
     end
   end
 end
+
+describe "#follows?" do
+  it "returns true if the user has a following relationship with another user" do
+    bob = Fabricate(:user)
+    jane = Fabricate(:user)
+    Fabricate(:relationship, leader: jane, follower: bob)
+    expect(bob.follows?(jane)).to be_truthy
+  end
+
+  it "returns false if the user does not have a following relationship with another user" do
+    bob = Fabricate(:user)
+    jane = Fabricate(:user)
+    Fabricate(:relationship, leader: bob, follower: jane)
+    expect(bob.follows?(jane)).to be_falsey
+  end
+end
