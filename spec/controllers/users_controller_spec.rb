@@ -1,4 +1,4 @@
-require 'spec_helper' 
+require 'spec_helper'
 
 describe UsersController do
   describe "GET new" do
@@ -28,7 +28,7 @@ describe UsersController do
         post :create, user: { password: "password", full_name: "Perry Carbone" }
       end
 
-      it "does not create the user" do  
+      it "does not create the user" do
         expect(User.count).to eq(0)
       end
 
@@ -37,8 +37,21 @@ describe UsersController do
       end
 
       it "sets @user" do
-        expect(assigns(:user)).to be_instance_of(User)     
+        expect(assigns(:user)).to be_instance_of(User)
       end
+    end
+  end
+
+  describe "GET show" do
+    it_behaves_like "requires sign in" do
+      let(:action) { get :show, id: 1 }
+    end
+
+    it "sets the @user variable" do
+      set_current_user
+      bob = Fabricate(:user)
+      get :show, id: bob.id
+      expect(assigns(:user)).to eq(bob)
     end
   end
 end
