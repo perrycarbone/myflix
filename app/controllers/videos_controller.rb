@@ -1,12 +1,12 @@
 class VideosController < ApplicationController
   before_action :require_user
-  
+
   def index
     @categories = Category.all
   end
 
   def show
-    @video = Video.find(params[:id])
+    @video = Video.find_by_token(params[:id])
     @reviews = @video.reviews
   end
 
