@@ -53,7 +53,7 @@ describe ReviewsController do
         end
       end
     end
-    
+
     it_behaves_like "requires sign in" do
       let(:action) do
         post :create, review: Fabricate.attributes_for(:review), video_id: video.id

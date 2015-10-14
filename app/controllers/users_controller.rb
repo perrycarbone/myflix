@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:edit, :update]
   before_action :require_user, except: [:new, :create, :front]
 
   def new
@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      AppMailer.send_welcome_email(@user).deliver
       flash[:success] = "You are registered.  Please sign in."
       redirect_to login_path
     else
@@ -18,6 +19,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def edit
