@@ -8,6 +8,11 @@ describe User do
   it { should have_many(:queue_items).order('position') }
   it { should have_many(:reviews).order('created_at DESC') }
 
+  it "generates a random token when the user is created" do
+    bob = Fabricate(:user)
+    expect(bob.token).to be_present
+  end
+
   describe "#queued_video?" do
     it "returns true when the user has the video queued in their queue" do
       user = Fabricate(:user)
