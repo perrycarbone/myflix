@@ -35,7 +35,7 @@ describe PasswordResetsController do
       end
 
       it "updates the user's password" do
-        expect(bob.reload.authenticate('new password')).to be_truthy
+        expect(bob.reload.authenticate('new_password')).to be_truthy
       end
 
       it "sets flash success message" do

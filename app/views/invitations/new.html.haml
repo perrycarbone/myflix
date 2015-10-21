@@ -7,6 +7,6 @@
         %fieldset
         = f.text_field :recipient_name, label: "Friend's Name"
         = f.email_field :recipient_email, label: "Friend's Email Address"
-        = f.text_area :message, label: "Invitation Message", placeholder: "Please join this really cool site!"
+        = f.text_area :message, class: "span4", rows: 6, label: "Invitation Message", placeholder: "Please join this really cool site!"
         = f.form_group do
           = f.submit "Send Invitation"

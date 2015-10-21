@@ -3,7 +3,6 @@ require 'capybara/email/rspec'
 
 feature 'User resets password' do
   scenario 'User successfully resets password' do
-    clear_email
     bob = Fabricate(:user, password: 'old_password')
     visit login_path
     click_link 'Forgot Password?'
@@ -21,5 +20,7 @@ feature 'User resets password' do
     click_button 'Sign In'
 
     expect(page).to have_content('You have successfully logged in.')
+
+    clear_email
   end
 end
