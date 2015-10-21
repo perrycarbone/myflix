@@ -24,10 +24,10 @@ describe PasswordResetsController do
 
   describe "POST create" do
     context "with valid token" do
-      let(:bob) { Fabricate(:user, password: 'old password') }
+      let(:bob) { Fabricate(:user, password: 'old_password') }
       before do
         bob.update_column(:token, '12345')
-        post :create, token: '12345', password: 'new password'
+        post :create, token: '12345', password: 'new_password'
       end
 
       it "redirects user to the sign in page" do

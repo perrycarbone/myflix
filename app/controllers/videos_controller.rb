@@ -6,7 +6,7 @@ class VideosController < ApplicationController
   end
 
   def show
-    @video = Video.find_by_token(params[:id])
+    @video = Video.find_by(token: params[:id])
     @reviews = @video.reviews
   end
 
