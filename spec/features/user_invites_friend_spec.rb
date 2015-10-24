@@ -1,20 +1,21 @@
 require 'spec_helper'
-require 'capybara/email/rspec'
 
 feature 'User invites friend' do
   scenario 'User successfully invites friend and invitation is accepted' do
-    bob = Fabricate(:user)
-    sign_in(bob)
+    alice = Fabricate(:user)
+    sign_in(alice)
 
     invite_a_friend
     friend_accepts_invitation
     friend_signs_in
 
-    friend_should_follow(bob)
-    inviter_should_follow(bob)
+    friend_should_follow(alice)
+    inviter_should_follow_friend(alice)
 
-    clear_email
+    clear_emails
   end
+
+  private
 
   def invite_a_friend
     visit new_invitation_path
@@ -45,8 +46,8 @@ feature 'User invites friend' do
     sign_out
   end
 
-  def inviter_should_follow(user)
-    sign_in(user)
+  def inviter_should_follow_friend(inviter)
+    sign_in(inviter)
     click_link "People"
     expect(page).to have_content "John Doe"
   end

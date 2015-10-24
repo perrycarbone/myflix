@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def edit; end
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.where(params[:user_id])
+    @user = User.find_by(params[:user_id])
   end
 
   def handle_invitation

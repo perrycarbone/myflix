@@ -13,7 +13,7 @@ class InvitationsController < ApplicationController
       flash[:success] = "You have successfully invited #{@invitation.recipient_name}."
       redirect_to new_invitation_path
     else
-      flash[:danger] = "Please fill out all required fields."
+      flash.now[:danger] = "Please fill out all required fields."
       render :new
     end
   end
