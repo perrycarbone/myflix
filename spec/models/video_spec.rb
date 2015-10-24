@@ -6,6 +6,10 @@ describe Video do
   it { should validate_presence_of(:description) }
   it { should have_many(:reviews).order('created_at DESC') }
 
+  it_behaves_like "tokenable" do
+    let(:object) { Fabricate(:user) }
+  end
+
   describe "search_by_title" do
     it "returns an empty array if there is no match" do
       goodfellas = Video.create(title: 'Goodfellas', description: 'mafia kids in NYC.')

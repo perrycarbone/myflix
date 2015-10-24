@@ -10,6 +10,10 @@ def sign_in(a_user=nil)
   click_button 'Sign In'
 end
 
+def sign_out
+  click_link "Sign Out"
+end
+
 def click_on_video_on_home_page(video)
   find("a[href='/videos/#{video.token}']").click
 end
