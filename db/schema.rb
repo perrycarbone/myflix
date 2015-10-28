@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028155823) do
+ActiveRecord::Schema.define(version: 20151028193953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20151028155823) do
     t.string   "token"
     t.string   "large_cover"
     t.string   "small_cover"
+    t.string   "video_url"
   end
 
 end
