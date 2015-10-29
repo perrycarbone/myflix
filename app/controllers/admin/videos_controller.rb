@@ -7,7 +7,7 @@ class Admin::VideosController < ApplicationController
   end
 
   def create
-    @video = Video.create(video_params)
+    @video = Video.new(video_params)
 
     if @video.save
       flash[:success] = "The video has been added."
