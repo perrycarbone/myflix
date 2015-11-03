@@ -1,0 +1,11 @@
+development:
+  STRIPE_PUBLISHABLE_KEY: pk_test_ORyWDSKq4lN83qpbJB5aoX42
+  STRIPE_SECRET_KEY: sk_test_4X3vY6KpaQrgGfUhY1kqdafx
+
+test:
+  STRIPE_PUBLISHABLE_KEY: pk_test_ORyWDSKq4lN83qpbJB5aoX42
+  STRIPE_SECRET_KEY: sk_test_4X3vY6KpaQrgGfUhY1kqdafx
+
+production:
+    STRIPE_PUBLISHABLE_KEY: pk_live_gYx1DIBQF1wEeTBBuWVkpGSH
+    STRIPE_SECRET_KEY: sk_live_U64Qq7U97495V1wR1DhXyALP
