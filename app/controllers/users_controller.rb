@@ -68,6 +68,7 @@ class UsersController < ApplicationController
   end
 
   def handle_charge
+    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     token = params[:stripeToken]
     charge = StripeWrapper::Charge.create(
       amount: 999,
