@@ -9,12 +9,24 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save
-      handle_invitation
-      handle_charge
-      AppMailer.delay.send_welcome_email(@user)
-      flash[:success] = "You are registered.  Please sign in."
-      redirect_to login_path
+    if @user.valid?
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      token = params[:stripeToken]
+      charge = StripeWrapper::Charge.create(
+        amount: 999,
+        source: token,
+        description: "Sign up charge for #{@user.email_address}"
+      )
+      if charge.successful?
+        @user.save
+        handle_invitation
+        AppMailer.delay.send_welcome_email(@user)
+        flash[:success] = "You are registered.  Please sign in."
+        redirect_to login_path
+      else
+        flash.now[:danger] = charge.error_message
+        render :new
+      end
     else
       render :new
     end
@@ -65,15 +77,5 @@ class UsersController < ApplicationController
       invitation.inviter.follow(@user)
       invitation.update_column(:token, nil)
     end
-  end
-
-  def handle_charge
-    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-    token = params[:stripeToken]
-    charge = StripeWrapper::Charge.create(
-      amount: 999,
-      source: token,
-      description: "Sign up charge for #{@user.email_address}"
-    )
   end
 end
