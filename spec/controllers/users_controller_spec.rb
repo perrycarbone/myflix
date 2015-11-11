@@ -10,10 +10,10 @@ describe UsersController do
 
   describe "POST create" do
     context "with valid personal info and valid card" do
-      let(:charge) { double(:charge, successful?: true) }
+      let(:customer) { double(:customer, successful?: true) }
 
       before do
-        StripeWrapper::Charge.stub(:create).and_return(charge)
+        StripeWrapper::Customer.stub(:create).and_return(customer)
         post :create, user: Fabricate.attributes_for(:user)
       end
 
@@ -50,24 +50,20 @@ describe UsersController do
     end
 
     context "valid personal info and declined card" do
-      it "renders the :new template" do
-        charge = double(:charge, successful?: false, error_message: 'Your card was declined.')
-        StripeWrapper::Charge.stub(:create).and_return(charge)
+      before do
+        customer = double(:customer, successful?: false, error_message: 'Your card was declined.')
+        StripeWrapper::Customer.stub(:create).and_return(customer)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '123'
+      end
+      it "renders the :new template" do
         expect(response).to render_template :new
       end
 
       it "does not create a new user record" do
-        charge = double(:charge, successful?: false, error_message: 'Your card was declined.')
-        StripeWrapper::Charge.stub(:create).and_return(charge)
-        post :create, user: Fabricate.attributes_for(:user), stripeToken: '123'
         expect(User.count).to eq(0)
       end
 
       it "sets the flash error message" do
-        charge = double(:charge, successful?: false, error_message: 'Your card was declined.')
-        StripeWrapper::Charge.stub(:create).and_return(charge)
-        post :create, user: Fabricate.attributes_for(:user), stripeToken: '123'
         expect(flash[:danger]).to be_present
       end
     end
@@ -96,10 +92,10 @@ describe UsersController do
     end
 
     context "test email sending" do
-      let(:charge) { double(:charge, successful?: true) }
+      let(:customer) { double(:customer, successful?: true) }
       before do
         ActionMailer::Base.deliveries.clear
-        StripeWrapper::Charge.stub(:create).and_return(charge)
+        StripeWrapper::Customer.stub(:create).and_return(customer)
       end
 
       it "sends out email to the user valid inputs" do
