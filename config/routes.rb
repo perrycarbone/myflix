@@ -7,7 +7,7 @@ Myflix::Application.routes.draw do
   get '/register/:token', to: 'users#new_with_invitation_token', as: 'register_with_token'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
-  get '/logout', to: 'sessions#destroy'
+  delete '/logout', to: 'sessions#destroy'
   get '/my_queue', to: 'queue_items#index'
 
   resources :videos, only: [:index, :show] do
