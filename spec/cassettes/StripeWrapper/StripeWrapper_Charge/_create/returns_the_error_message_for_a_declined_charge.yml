@@ -1,0 +1,160 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/tokens
+    body:
+      encoding: US-ASCII
+      string: card[cvc]=314&card[exp_month]=11&card[exp_year]=2016&card[number]=4000000000000002
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.30.3
+      Authorization:
+      - Bearer sk_test_4X3vY6KpaQrgGfUhY1kqdafx
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.30.3","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","engine":"ruby","publisher":"stripe","uname":"Darwin
+        Perrys-MacBook-Pro.local 14.5.0 Darwin Kernel Version 14.5.0: Tue Sep  1 21:23:09
+        PDT 2015; root:xnu-2782.50.1~1/RELEASE_X86_64 x86_64","hostname":"Perrys-MacBook-Pro.local"}'
+      Content-Length:
+      - '82'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Nov 2015 15:13:08 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '782'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_7KIOcU5wdgWJBf
+      Stripe-Version:
+      - '2015-10-16'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "tok_175do0LLwkS6PWMdIIeLBj11",
+          "object": "token",
+          "card": {
+            "id": "card_175do0LLwkS6PWMdLT1SipN1",
+            "object": "card",
+            "address_city": null,
+            "address_country": null,
+            "address_line1": null,
+            "address_line1_check": null,
+            "address_line2": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_zip_check": null,
+            "brand": "Visa",
+            "country": "US",
+            "cvc_check": "unchecked",
+            "dynamic_last4": null,
+            "exp_month": 11,
+            "exp_year": 2016,
+            "fingerprint": "yiP624S1nbfezubi",
+            "funding": "credit",
+            "last4": "0002",
+            "metadata": {},
+            "name": null,
+            "tokenization_method": null
+          },
+          "client_ip": "24.228.222.151",
+          "created": 1447168388,
+          "livemode": false,
+          "type": "card",
+          "used": false
+        }
+    http_version: 
+  recorded_at: Tue, 10 Nov 2015 15:13:08 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/charges
+    body:
+      encoding: US-ASCII
+      string: amount=999&card=tok_175do0LLwkS6PWMdIIeLBj11&currency=usd&description=a+valid+charge
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.30.3
+      Authorization:
+      - Bearer sk_test_4X3vY6KpaQrgGfUhY1kqdafx
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.30.3","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","engine":"ruby","publisher":"stripe","uname":"Darwin
+        Perrys-MacBook-Pro.local 14.5.0 Darwin Kernel Version 14.5.0: Tue Sep  1 21:23:09
+        PDT 2015; root:xnu-2782.50.1~1/RELEASE_X86_64 x86_64","hostname":"Perrys-MacBook-Pro.local"}'
+      Content-Length:
+      - '84'
+  response:
+    status:
+      code: 402
+      message: Payment Required
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Nov 2015 15:13:09 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '162'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_7KIOoU381J7y2m
+      Stripe-Version:
+      - '2015-10-16'
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "error": {
+            "message": "Your card was declined.",
+            "type": "card_error",
+            "code": "card_declined",
+            "charge": "ch_175do1LLwkS6PWMdfRdTLb2r"
+          }
+        }
+    http_version: 
+  recorded_at: Tue, 10 Nov 2015 15:13:09 GMT
+recorded_with: VCR 3.0.0
