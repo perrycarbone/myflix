@@ -1,6 +1,4 @@
 class Video < ActiveRecord::Base
-  include Tokenable
-
   belongs_to :category
   belongs_to :user
   has_many :reviews, -> { order 'created_at DESC' }
@@ -14,7 +12,7 @@ class Video < ActiveRecord::Base
     where("title LIKE ?", "%#{search_term}%").order("created_at DESC")
   end
 
-  def to_param
-    token
+  def rating
+    reviews.average(:rating).round(1) if reviews.average(:rating)
   end
 end
