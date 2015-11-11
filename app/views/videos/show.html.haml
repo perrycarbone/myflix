@@ -7,6 +7,7 @@
         %header
           %h3= @video.title
           %span Rating:
+          = @video.rating
         %p= @video.description
         .action
           %a.btn.btn-primary(href="#{@video.video_url}") Watch Now
