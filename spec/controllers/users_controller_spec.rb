@@ -45,7 +45,6 @@ describe UsersController do
         bob = Fabricate(:user)
         invitation = Fabricate(:invitation, inviter: bob, recipient_email: 'jane@example.com')
         post :create, user: {email_address: 'jane@example.com', password: 'password', full_name: 'Jane Doe'}, invitation_token: invitation.token
-        jane = User.find_by(email_address: 'jane@example.com')
         expect(Invitation.first.token).to be_nil
       end
     end
@@ -91,7 +90,7 @@ describe UsersController do
       end
 
       it "does not charge the card" do
-        StripeWrapper::Charge.should_not_receive(:create)
+        expect(StripeWrapper::Charge).not_to receive(:create)
         post :create, user: {email_address: 'joe@example.com' }
       end
     end
