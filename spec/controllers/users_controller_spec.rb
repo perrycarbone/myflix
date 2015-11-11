@@ -9,16 +9,21 @@ describe UsersController do
   end
 
   describe "POST create" do
-    context "successful user sign up" do
+    context "with valid personal info and valid card" do
+      let(:charge) { double(:charge, successful?: true) }
+
+      before do
+        StripeWrapper::Charge.stub(:create).and_return(charge)
+        post :create, user: Fabricate.attributes_for(:user)
+      end
+
+      it "creates the user" do
+        expect(User.count).to eq(1)
+      end
 
       it "redirects to sign in page" do
-        result = double(:sign_up_result, successful?: true)
-        UserSignup.any_instance.should_receive(:sign_up).and_return(result)
-        post :create, user: Fabricate.attributes_for(:user)
         expect(response).to redirect_to login_path
       end
-<<<<<<< HEAD
-=======
 
       it "makes the user follow the inviter" do
         bob = Fabricate(:user)
@@ -65,23 +70,21 @@ describe UsersController do
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '123'
         expect(flash[:danger]).to be_present
       end
->>>>>>> mod13
     end
 
-    context "failed user sign up" do
+    context "with invalid personal info" do
       before do
-        result = double(:sign_up_result, successful?: false, error_message: 'This is an error message!')
-        UserSignup.any_instance.should_receive(:sign_up).and_return(result)
-        post :create, user: Fabricate.attributes_for(:user), stripeToken: '123'
+        post :create, user: { password: "password", full_name: "Perry Carbone" }
       end
-      it "renders the :new template" do
+
+      it "does not create the user" do
+        expect(User.count).to eq(0)
+      end
+
+      it "render the :new template" do
         expect(response).to render_template :new
       end
 
-<<<<<<< HEAD
-      it "sets the flash error message" do
-        expect(flash[:danger]).to eq('This is an error message!')
-=======
       it "sets @user" do
         expect(assigns(:user)).to be_instance_of(User)
       end
@@ -112,7 +115,6 @@ describe UsersController do
       it "does not send out email with invalid inputs" do
         post :create, user: { email_address: "jane@example.com", password: "password" }
         expect(ActionMailer::Base.deliveries).to be_empty
->>>>>>> mod13
       end
     end
   end

@@ -23,14 +23,6 @@ describe UserSignup do
         expect(jane.follows?(bob)).to be_truthy
       end
 
-      it "makes the inviter follow the user" do
-        bob = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: bob, recipient_email: 'jane@example.com')
-        UserSignup.new(Fabricate.build(:user, email_address: 'jane@example.com', password: 'password', full_name: 'Jane Doe')).sign_up('some stripe token', invitation.token)
-        jane = User.find_by(email_address: 'jane@example.com')
-        expect(bob.follows?(jane)).to be_truthy
-      end
-
       it "expires the invitation upon acceptance" do
         bob = Fabricate(:user)
         invitation = Fabricate(:invitation, inviter: bob, recipient_email: 'jane@example.com')
