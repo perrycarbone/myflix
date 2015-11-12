@@ -10,7 +10,7 @@ describe UsersController do
 
   describe "POST create" do
     context "with valid personal info and valid card" do
-      let(:customer) { double(:customer, successful?: true) }
+      let(:customer) { double(:customer, successful?: true, customer_token: '1234') }
 
       before do
         StripeWrapper::Customer.stub(:create).and_return(customer)
@@ -92,7 +92,7 @@ describe UsersController do
     end
 
     context "test email sending" do
-      let(:customer) { double(:customer, successful?: true) }
+      let(:customer) { double(:customer, successful?: true, customer_token: '1234') }
       before do
         ActionMailer::Base.deliveries.clear
         StripeWrapper::Customer.stub(:create).and_return(customer)
