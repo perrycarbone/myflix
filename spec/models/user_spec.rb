@@ -7,6 +7,7 @@ describe User do
   it { should validate_uniqueness_of(:email_address) }
   it { should have_many(:queue_items).order('position') }
   it { should have_many(:reviews).order('created_at DESC') }
+  it { should have_many(:payments) }
 
   it_behaves_like "tokenable" do
     let(:object) { Fabricate(:user) }
