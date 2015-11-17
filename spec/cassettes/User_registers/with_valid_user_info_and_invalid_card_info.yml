@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stripe.com/v1/charges
+    uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&description=Sign+up+charge+for+john%40example.com&source=tok_175f58LLwkS6PWMdmxwnNrj5
+      string: email=john%40example.com&plan=myflixbase&source=tok_176BYvLLwkS6PWMdmjO4tMaE
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -17,12 +17,14 @@ http_interactions:
       - Bearer sk_test_4X3vY6KpaQrgGfUhY1kqdafx
       Content-Type:
       - application/x-www-form-urlencoded
+      Stripe-Version:
+      - '2015-01-11'
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.30.3","lang":"ruby","lang_version":"2.2.3 p173 (2015-08-18)","platform":"x86_64-darwin14","engine":"ruby","publisher":"stripe","uname":"Darwin
-        Perrys-MBP 14.5.0 Darwin Kernel Version 14.5.0: Tue Sep  1 21:23:09 PDT 2015;
-        root:xnu-2782.50.1~1/RELEASE_X86_64 x86_64","hostname":"Perrys-MBP"}'
+        Perrys-MBP.home 14.5.0 Darwin Kernel Version 14.5.0: Tue Sep  1 21:23:09 PDT
+        2015; root:xnu-2782.50.1~1/RELEASE_X86_64 x86_64","hostname":"Perrys-MBP.home"}'
       Content-Length:
-      - '109'
+      - '76'
   response:
     status:
       code: 402
@@ -31,11 +33,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 10 Nov 2015 16:34:55 GMT
+      - Thu, 12 Nov 2015 03:15:50 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '198'
+      - '153'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,9 +51,9 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7KJikMHokWNRlI
+      - req_7KrHfTK6bJCeJ9
       Stripe-Version:
-      - '2015-10-16'
+      - '2015-01-11'
     body:
       encoding: UTF-8
       string: |
@@ -60,10 +62,9 @@ http_interactions:
             "message": "Your card's security code is incorrect.",
             "type": "card_error",
             "param": "cvc",
-            "code": "incorrect_cvc",
-            "charge": "ch_175f58LLwkS6PWMdAXc177YZ"
+            "code": "incorrect_cvc"
           }
         }
     http_version: 
-  recorded_at: Tue, 10 Nov 2015 16:34:55 GMT
+  recorded_at: Thu, 12 Nov 2015 03:15:50 GMT
 recorded_with: VCR 3.0.0

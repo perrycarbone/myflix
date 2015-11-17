@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :reviews, -> { order 'created_at DESC' }
   has_many :following_relationships, class_name: 'Relationship', foreign_key: :follower_id
   has_many :leading_relationships, class_name: 'Relationship', foreign_key: :leader_id
+  has_many :payments
   has_secure_password validations: false
 
   validates :full_name, presence: true
@@ -32,5 +33,9 @@ class User < ActiveRecord::Base
 
   def follow(another_user)
     following_relationships.create(leader: another_user) if can_follow?(another_user)
+  end
+
+  def deactivate!
+    update_column(:active, false)
   end
 end
