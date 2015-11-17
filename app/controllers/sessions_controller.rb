@@ -5,12 +5,17 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email_address: params[:email_address])
-      if user && user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
+      if user.active?
         login_success!(user)
       else
-        flash[:danger] = "Your Username or Password is incorrect."
+        flash[:danger] = "Your account has been suspended.  Please contact customer service."
         redirect_to login_path
       end
+    else
+      flash[:danger] = "Your Username or Password is incorrect."
+      redirect_to login_path
+    end
   end
 
   def destroy
@@ -25,5 +30,4 @@ class SessionsController < ApplicationController
     flash[:success] = "You have successfully logged in."
     redirect_to home_path
   end
-
 end
