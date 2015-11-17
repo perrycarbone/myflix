@@ -66,7 +66,7 @@ describe UserSignup do
       end
 
       it "does not charge the card" do
-        StripeWrapper::Customer.should_not_receive(:create)
+        expect(StripeWrapper::Customer).not_to receive(:create)
       end
 
       it "does not send out email with invalid inputs" do

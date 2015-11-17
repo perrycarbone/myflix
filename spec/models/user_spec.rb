@@ -63,7 +63,7 @@ describe "#follow" do
     it "deactivates an active user" do
       bob = Fabricate(:user, active: true)
       bob.deactivate!
-      expect(bob).not_to be_active
+      expect(bob.reload).not_to be_active
     end
   end
 end
