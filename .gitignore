@@ -19,3 +19,7 @@ config/database.yml
 
 # Ignore application configuration
 /config/application.yml
+
+/*.DS_Store
+/*.env
+/*.acorncache.yml
